@@ -27,7 +27,7 @@ public class DataInitializer implements CommandLineRunner {
 
     @Override
     public void run(String... args) throws Exception {
-        // Criar categorias
+        
         Categoria categoryAção = Categoria.builder()
             .num(1)
             .nome("Ação")
@@ -98,7 +98,7 @@ public class DataInitializer implements CommandLineRunner {
             .nome("The Witcher 3")
             .ano(2015)
             .valorMinuto(2.0)
-            .situacao("disponivel")
+            .situacao("contratado")
             .categoria(categoryAventura)
             .dataCriacao(LocalDate.of(2015, 5, 19))
             .build();
@@ -108,7 +108,7 @@ public class DataInitializer implements CommandLineRunner {
             .nome("Elden Ring")
             .ano(2022)
             .valorMinuto(3.0)
-            .situacao("disponivel")
+            .situacao("obsoleto")
             .categoria(categoryAção)
             .dataCriacao(LocalDate.of(2022, 2, 25))
             .build();
@@ -118,7 +118,7 @@ public class DataInitializer implements CommandLineRunner {
             .nome("FIFA 24")
             .ano(2023)
             .valorMinuto(1.5)
-            .situacao("disponivel")
+            .situacao("removido")
             .categoria(categoryEsportes)
             .dataCriacao(LocalDate.of(2023, 9, 29))
             .build();

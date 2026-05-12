@@ -1,0 +1,77 @@
+ENDPOINTS DA APLICAÇÃO 
+==================================
+
+RODAR A APLICAÇÃO: mvn spring-boot:run
+
+BASE URL: http://localhost:8080/acmespiele
+
+CLIENTES
+--------
+GET /listaclientes
+http://localhost:8080/acmespiele/listaclientes
+
+CONTRATOS
+---------
+GET /listacontratos
+http://localhost:8080/acmespiele/listacontratos
+
+POST /cadastro/cadcontrato
+http://localhost:8080/acmespiele/cadastro/cadcontrato
+Corpo (JSON):
+{
+  "id": 1,
+  "cliente": {
+    "cpf": "12345678901"  
+  },
+  "jogo": {
+    "codigo": 1
+  },
+  "periodo": 30,  // ← OBRIGATÓRIO 
+  "dataInicio": "2026-05-11",
+  "dataFim": "2026-12-31",
+  "valor": 150.00
+}
+
+DELETE /cadastro/cancelacontrato?id={id}
+http://localhost:8080/acmespiele/cadastro/cancelacontrato?id=1
+
+COBRANÇA
+--------
+GET /consultatotalcontrato?id={id}
+http://localhost:8080/acmespiele/consultatotalcontrato?id=1
+
+GET /consultatotalcliente?cpf={cpf}
+http://localhost:8080/acmespiele/consultatotalcliente?cpf=12345678900
+
+JOGOS
+-----
+GET /listajogos
+http://localhost:8080/acmespiele/listajogos
+
+GET /consultarjogossituacao/{situacao}
+http://localhost:8080/acmespiele/consultarjogossituacao/disponivel
+
+PUT /cadastro/atualizajogo/{codigo}/situacao/{status}
+http://localhost:8080/acmespiele/cadastro/atualizajogo/1/situacao/inativa
+Nota: Este endpoint não requer corpo JSON, apenas URL
+
+USOS
+----
+POST /cadastro/caduso
+http://localhost:8080/acmespiele/cadastro/caduso
+Corpo (JSON):
+{
+  "contrato": {
+    "id": 1
+  },
+  "dataInicio": "2026-05-11",
+  "dataFim": "2026-05-11",
+  "horarioInicio": 10,
+  "horarioFim": 12
+}
+
+
+disponivel → contratado
+contratado → obsoleto
+obsoleto → removido
+contratado → disponivel (volta para disponível)

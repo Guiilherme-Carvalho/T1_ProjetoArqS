@@ -17,12 +17,6 @@ public class CobrancaService {
     @Autowired
     private UsoRepository usoRepository;
 
-    /**
-     * Calcula o valor total de um contrato
-     * Fórmula: valorMinimo + (minutosJogados × valorMinuto)
-     * @param contratoId ID do contrato
-     * @return Valor total do contrato
-     */
     public Double calcularValorTotalContrato(Integer contratoId) {
         var contrato = contratoRepository.findById(contratoId);
         if (contrato.isEmpty()) {
@@ -32,12 +26,6 @@ public class CobrancaService {
         return calcularValorContrato(contrato.get());
     }
 
-    /**
-     * Calcula o valor total de cobrança de um cliente
-     * Soma todos os contratos e aplica desconto de 3% se total > $500
-     * @param cpf CPF do cliente
-     * @return Valor total de cobrança com desconto aplicado
-     */
     public Double calcularValorTotalCliente(String cpf) {
         List<Contrato> contratos = contratoRepository.findByCliente_Cpf(cpf);
         
@@ -59,11 +47,6 @@ public class CobrancaService {
         return valorTotal;
     }
 
-    /**
-     * Calcula o valor de um contrato específico
-     * @param contrato Contrato a calcular
-     * @return Valor total do contrato
-     */
     private Double calcularValorContrato(Contrato contrato) {
         List<Uso> usos = usoRepository.findByContrato_Id(contrato.getId());
         
@@ -79,11 +62,6 @@ public class CobrancaService {
         return valorTotal;
     }
 
-    /**
-     * Calcula minutos jogados em um uso específico
-     * @param uso Uso a calcular
-     * @return Número de minutos jogados
-     */
     private Long calcularMinutosJogados(Uso uso) {
         long dias = java.time.temporal.ChronoUnit.DAYS.between(
             uso.getDataInicio(), 
@@ -103,11 +81,6 @@ public class CobrancaService {
         return Math.max(minutos, 0);
     }
 
-    /**
-     * Verifica se cliente tem desconto aplicável
-     * @param cpf CPF do cliente
-     * @return true se total > 500 (desconto aplicável)
-     */
     public boolean temDescontoAplicavel(String cpf) {
         List<Contrato> contratos = contratoRepository.findByCliente_Cpf(cpf);
         
@@ -119,11 +92,6 @@ public class CobrancaService {
         return valorTotal > 500;
     }
 
-    /**
-     * Retorna o percentual de desconto aplicado
-     * @param cpf CPF do cliente
-     * @return Percentual de desconto (0 ou 3)
-     */
     public Double obterPercentualDesconto(String cpf) {
         return temDescontoAplicavel(cpf) ? 3.0 : 0.0;
     }

@@ -13,38 +13,18 @@ public class ClienteService {
     @Autowired
     private ClienteRepository clienteRepository;
 
-    /**
-     * Busca todos os clientes cadastrados
-     * @return Lista de todos os clientes
-     */
     public List<Cliente> listarTodos() {
         return clienteRepository.findAll();
     }
 
-    /**
-     * Busca um cliente específico pelo CPF
-     * @param cpf CPF do cliente
-     * @return Optional contendo o cliente se encontrado
-     */
     public Optional<Cliente> buscarPorCpf(String cpf) {
         return clienteRepository.findById(cpf);
     }
 
-    /**
-     * Cadastra um novo cliente
-     * @param cliente Cliente a ser cadastrado
-     * @return Cliente cadastrado
-     */
     public Cliente salvar(Cliente cliente) {
         return clienteRepository.save(cliente);
     }
 
-    /**
-     * Atualiza um cliente existente
-     * @param cpf CPF do cliente
-     * @param clienteAtualizado Dados do cliente atualizado
-     * @return Cliente atualizado
-     */
     public Cliente atualizar(String cpf, Cliente clienteAtualizado) {
         Optional<Cliente> cliente = clienteRepository.findById(cpf);
         if (cliente.isPresent()) {
@@ -59,10 +39,6 @@ public class ClienteService {
         return null;
     }
 
-    /**
-     * Deleta um cliente
-     * @param cpf CPF do cliente
-     */
     public void deletar(String cpf) {
         clienteRepository.deleteById(cpf);
     }

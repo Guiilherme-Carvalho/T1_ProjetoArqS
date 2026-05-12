@@ -24,37 +24,18 @@ public class ContratoService {
     @Autowired
     private JogoRepository jogoRepository;
 
-    /**
-     * Busca todos os contratos cadastrados
-     * @return Lista de todos os contratos
-     */
     public List<Contrato> listarTodos() {
         return contratoRepository.findAll();
     }
 
-    /**
-     * Busca um contrato específico
-     * @param id ID do contrato
-     * @return Optional contendo o contrato se encontrado
-     */
     public Optional<Contrato> buscarPorId(Integer id) {
         return contratoRepository.findById(id);
     }
 
-    /**
-     * Busca todos os contratos de um cliente
-     * @param cpf CPF do cliente
-     * @return Lista de contratos do cliente
-     */
     public List<Contrato> listarPorCliente(String cpf) {
         return contratoRepository.findByCliente_Cpf(cpf);
     }
 
-    /**
-     * Cadastra um novo contrato
-     * @param contrato Contrato a ser cadastrado
-     * @return true se cadastrado com sucesso, false caso contrário
-     */
     public boolean cadastrar(Contrato contrato) {
         try {
             // Validar se cliente existe
@@ -85,11 +66,6 @@ public class ContratoService {
         }
     }
 
-    /**
-     * Cancela um contrato (soft delete)
-     * @param id ID do contrato
-     * @return true se cancelado com sucesso, false caso contrário
-     */
     public boolean cancelar(Integer id) {
         try {
             Optional<Contrato> contrato = contratoRepository.findById(id);
@@ -105,12 +81,6 @@ public class ContratoService {
         }
     }
 
-    /**
-     * Atualiza um contrato existente
-     * @param id ID do contrato
-     * @param contratoAtualizado Dados do contrato atualizado
-     * @return Contrato atualizado ou null
-     */
     public Contrato atualizar(Integer id, Contrato contratoAtualizado) {
         Optional<Contrato> contrato = contratoRepository.findById(id);
         if (contrato.isPresent()) {
@@ -122,10 +92,6 @@ public class ContratoService {
         return null;
     }
 
-    /**
-     * Deleta um contrato permanentemente
-     * @param id ID do contrato
-     */
     public void deletar(Integer id) {
         contratoRepository.deleteById(id);
     }
